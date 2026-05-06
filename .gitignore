@@ -1,0 +1,17 @@
+# Uploads de usuarios - ignora tudo, mas mantem a pasta versionada
+/public/uploads/*
+!/public/uploads/.gitkeep
+
+# Anotacoes pessoais
+DIARIO.md
+
+# Logs
+*.log
+
+# Configs de IDE / ferramentas locais
+.vscode/
+.idea/
+.claude/
+
+# Override local de credenciais do banco (caso seja necessario futuramente)
+/config/conexao_local.php
