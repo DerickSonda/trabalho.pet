@@ -26,7 +26,13 @@ $flashSucesso = mensagemFlash('sucesso');
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= escapar($tituloPagina) ?></title>
-    <link rel="stylesheet" href="/trabalho.pet/public/css/estilo.css">
+    <?php
+        // Cache busting do CSS - mesma logica dos scripts no footer
+        $cssCaminho  = '/trabalho.pet/public/css/estilo.css';
+        $cssArquivo  = $_SERVER['DOCUMENT_ROOT'] . $cssCaminho;
+        $cssVersao   = is_file($cssArquivo) ? filemtime($cssArquivo) : time();
+    ?>
+    <link rel="stylesheet" href="<?= escapar($cssCaminho) ?>?v=<?= $cssVersao ?>">
 </head>
 <body>
     <header class="topo">

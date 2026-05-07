@@ -15,7 +15,13 @@ $scripts = isset($scripts) && is_array($scripts) ? $scripts : [];
     </footer>
 
     <?php foreach ($scripts as $caminhoScript): ?>
-        <script src="<?= escapar($caminhoScript) ?>"></script>
+        <?php
+            // Cache busting: anexa filemtime na URL para forcar o navegador
+            // a baixar a versao nova do JS toda vez que o arquivo for alterado.
+            $arquivoFisico = $_SERVER['DOCUMENT_ROOT'] . $caminhoScript;
+            $versao = is_file($arquivoFisico) ? filemtime($arquivoFisico) : time();
+        ?>
+        <script src="<?= escapar($caminhoScript) ?>?v=<?= $versao ?>"></script>
     <?php endforeach; ?>
 </body>
 </html>

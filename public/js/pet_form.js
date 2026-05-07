@@ -27,6 +27,12 @@
             campoOutro.hidden = true;
             inputOutro.value = '';
         }
+        // Limpa o erro do campo de especie quando o usuario corrige a escolha
+        // (UX: mensagem de erro nao deve "grudar" depois que o problema sumiu)
+        const erroEspecie       = formulario.querySelector('[data-erro="especie"]');
+        const erroEspecieOutro  = formulario.querySelector('[data-erro="especie_outro"]');
+        if (erroEspecie)      erroEspecie.textContent = '';
+        if (erroEspecieOutro) erroEspecieOutro.textContent = '';
     }
 
     if (selectEspecie && campoOutro) {
