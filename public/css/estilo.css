@@ -185,6 +185,20 @@ a:hover {
     background-color: #d1d5db;
 }
 
+.botao-perigo {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+.botao-perigo:hover {
+    background-color: #fecaca;
+}
+
+.botao-grande {
+    padding: 0.85rem 1.6rem;
+    font-size: 1.05rem;
+}
+
 /* ---------- Mensagens ---------- */
 .alerta {
     padding: 0.75rem 1rem;
@@ -217,6 +231,210 @@ a:hover {
     gap: 0.5rem;
     flex-wrap: wrap;
     margin-top: 0.5rem;
+}
+
+.obrig {
+    color: #dc2626;
+}
+
+.texto-meta {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin-bottom: 0.35rem;
+}
+
+/* ---------- Cabecalho de pagina (titulo + acao) ---------- */
+.cabecalho-pagina {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+}
+
+.cabecalho-pagina h1 {
+    color: #111827;
+}
+
+/* ---------- Saudacao do dashboard ---------- */
+.saudacao {
+    margin-bottom: 1.25rem;
+}
+
+.saudacao h1 {
+    color: #111827;
+    font-size: 1.5rem;
+}
+
+.saudacao p {
+    color: #4b5563;
+}
+
+/* ---------- Cards de resumo ---------- */
+.resumo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.cartao-resumo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+}
+
+.resumo-rotulo {
+    font-size: 0.85rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.resumo-numero {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2563eb;
+}
+
+/* ---------- Lista de registros recentes ---------- */
+.lista-registros {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.item-registro {
+    border-left: 3px solid #2563eb;
+    padding: 0.5rem 0.75rem;
+    background-color: #f9fafb;
+    border-radius: 4px;
+}
+
+.item-registro-cabec {
+    font-size: 1rem;
+}
+
+.item-registro-pet {
+    color: #4b5563;
+    font-weight: 400;
+}
+
+.item-registro-meta {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin-top: 0.15rem;
+}
+
+.item-registro-desc {
+    margin-top: 0.4rem;
+    color: #374151;
+    font-size: 0.95rem;
+}
+
+/* ---------- Grade de pets ---------- */
+.grade-pets {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.cartao-pet {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+}
+
+.pet-foto {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 6px;
+    background-color: #e5e7eb;
+}
+
+.pet-foto-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #93c5fd, #2563eb);
+    color: #ffffff;
+    font-size: 3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.pet-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.pet-nome {
+    font-size: 1.2rem;
+    color: #111827;
+}
+
+.pet-meta {
+    color: #4b5563;
+    font-size: 0.9rem;
+}
+
+.pet-acoes {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-top: auto;
+}
+
+.pet-acoes .botao {
+    flex: 1;
+    min-width: 80px;
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+}
+
+.form-excluir-pet {
+    flex: 1;
+    min-width: 80px;
+    display: flex;
+}
+
+.form-excluir-pet .botao {
+    width: 100%;
+}
+
+/* ---------- Estado vazio ---------- */
+.estado-vazio {
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+}
+
+.estado-vazio-icone {
+    font-size: 1.1rem;
+    color: #9ca3af;
+    letter-spacing: 0.2em;
+    margin-bottom: 0.75rem;
+}
+
+.estado-vazio h2 {
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.estado-vazio p {
+    color: #6b7280;
+    margin-bottom: 1.25rem;
+}
+
+.texto-vazio {
+    color: #6b7280;
+    text-align: center;
+    padding: 1rem 0;
 }
 
 /* ---------- Rodape ---------- */
@@ -256,5 +474,18 @@ a:hover {
 
     .linha-acoes .botao {
         width: 100%;
+    }
+
+    .cabecalho-pagina {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .cabecalho-pagina .botao {
+        width: 100%;
+    }
+
+    .resumo-numero {
+        font-size: 1.6rem;
     }
 }
