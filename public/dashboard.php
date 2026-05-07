@@ -55,14 +55,20 @@ require __DIR__ . '/../includes/header.php';
 </section>
 
 <section class="resumo">
-    <div class="cartao cartao-resumo">
+    <a class="cartao cartao-resumo cartao-resumo-link"
+       href="/trabalho.pet/public/pets.php"
+       title="Ver todos os pets">
         <span class="resumo-rotulo">Pets cadastrados</span>
         <span class="resumo-numero"><?= $totalPets ?></span>
-    </div>
-    <div class="cartao cartao-resumo">
+        <span class="resumo-cta">Ver pets &rarr;</span>
+    </a>
+    <a class="cartao cartao-resumo cartao-resumo-link"
+       href="/trabalho.pet/public/registros.php"
+       title="Ver todos os registros">
         <span class="resumo-rotulo">Registros este mes</span>
         <span class="resumo-numero"><?= $totalRegistrosMes ?></span>
-    </div>
+        <span class="resumo-cta">Ver registros &rarr;</span>
+    </a>
 </section>
 
 <section class="cartao">
