@@ -437,6 +437,169 @@ a:hover {
     padding: 1rem 0;
 }
 
+/* ---------- Lista de registros (dashboard) com link ---------- */
+.item-registro-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    transition: background-color 0.12s, transform 0.05s;
+}
+
+.item-registro-link:hover {
+    background-color: #eef2ff;
+    text-decoration: none;
+}
+
+/* ---------- Filtros ---------- */
+.filtros {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.75rem;
+    align-items: end;
+    margin-bottom: 1.25rem;
+}
+
+.filtros-acoes {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    grid-column: 1 / -1;
+    margin-top: 0.25rem;
+}
+
+/* ---------- Tabela de registros ---------- */
+.tabela-wrap {
+    padding: 0;
+    overflow-x: auto;
+}
+
+.tabela-registros {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.tabela-registros th,
+.tabela-registros td {
+    padding: 0.65rem 0.85rem;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.tabela-registros thead th {
+    background-color: #f3f4f6;
+    color: #374151;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.tabela-registros tbody tr {
+    border-bottom: 1px solid #f3f4f6;
+}
+
+/* zebra striping */
+.tabela-registros tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.tabela-registros tbody tr:hover {
+    background-color: #eff6ff;
+}
+
+.celula-descricao {
+    color: #4b5563;
+    max-width: 280px;
+}
+
+.celula-acoes {
+    white-space: nowrap;
+}
+
+.link-acao {
+    background: none;
+    border: none;
+    padding: 0.25rem 0.4rem;
+    font-size: 0.9rem;
+    color: #2563eb;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.link-acao:hover {
+    text-decoration: underline;
+}
+
+.link-acao-perigo {
+    color: #dc2626;
+}
+
+.form-excluir-registro {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+/* ---------- Badges por tipo de registro ---------- */
+.badge {
+    display: inline-block;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    line-height: 1.4;
+    white-space: nowrap;
+    color: #ffffff;
+}
+
+.badge-alimentacao { background-color: #f59e0b; }  /* ambar - comida */
+.badge-limpeza     { background-color: #10b981; }  /* verde - limpeza */
+.badge-veterinario { background-color: #dc2626; }  /* vermelho - vet */
+.badge-medicacao   { background-color: #8b5cf6; }  /* roxo - remedio */
+.badge-banho       { background-color: #06b6d4; }  /* ciano - banho */
+.badge-outro       { background-color: #6b7280; }  /* cinza - outro */
+
+/* ---------- Tabela responsiva: vira lista vertical em telas pequenas ---------- */
+@media (max-width: 640px) {
+    .tabela-registros thead {
+        display: none;
+    }
+
+    .tabela-registros tbody tr {
+        display: block;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .tabela-registros tbody tr:nth-child(even) {
+        background-color: transparent;
+    }
+
+    .tabela-registros td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.4rem 0.75rem;
+        border: none;
+    }
+
+    .tabela-registros td::before {
+        content: attr(data-rotulo);
+        font-weight: 600;
+        font-size: 0.8rem;
+        color: #6b7280;
+        text-transform: uppercase;
+    }
+
+    .celula-descricao {
+        max-width: none;
+    }
+}
+
 /* ---------- Rodape ---------- */
 .rodape {
     background-color: #ffffff;

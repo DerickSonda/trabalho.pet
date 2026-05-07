@@ -6,6 +6,7 @@
 
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/pets.php';
+require_once __DIR__ . '/../includes/registros.php';
 
 iniciarSessao();
 exigirLogin();
@@ -73,22 +74,28 @@ require __DIR__ . '/../includes/header.php';
     <?php else: ?>
         <ul class="lista-registros">
             <?php foreach ($ultimosRegistros as $reg): ?>
-                <li class="item-registro">
-                    <div class="item-registro-cabec">
-                        <strong><?= escapar(rotuloTipoRegistro($reg['tipo'])) ?></strong>
-                        <span class="item-registro-pet">
-                            - <?= escapar($reg['pet_nome']) ?>
-                        </span>
-                    </div>
-                    <div class="item-registro-meta">
-                        <?= escapar(date('d/m/Y H:i', strtotime($reg['data_hora']))) ?>
-                        <?php if ($reg['custo'] !== null && $reg['custo'] !== ''): ?>
-                            - R$ <?= escapar(number_format((float) $reg['custo'], 2, ',', '.')) ?>
+                <li>
+                    <a class="item-registro item-registro-link"
+                       href="/trabalho.pet/public/registro_form.php?id=<?= (int) $reg['id'] ?>"
+                       title="Editar este registro">
+                        <div class="item-registro-cabec">
+                            <span class="badge <?= escapar(classeBadgeTipo($reg['tipo'])) ?>">
+                                <?= escapar(rotuloTipoRegistro($reg['tipo'])) ?>
+                            </span>
+                            <span class="item-registro-pet">
+                                <?= escapar($reg['pet_nome']) ?>
+                            </span>
+                        </div>
+                        <div class="item-registro-meta">
+                            <?= escapar(date('d/m/Y H:i', strtotime($reg['data_hora']))) ?>
+                            <?php if ($reg['custo'] !== null && $reg['custo'] !== ''): ?>
+                                - R$ <?= escapar(number_format((float) $reg['custo'], 2, ',', '.')) ?>
+                            <?php endif; ?>
+                        </div>
+                        <?php if (!empty($reg['descricao'])): ?>
+                            <p class="item-registro-desc"><?= escapar($reg['descricao']) ?></p>
                         <?php endif; ?>
-                    </div>
-                    <?php if (!empty($reg['descricao'])): ?>
-                        <p class="item-registro-desc"><?= escapar($reg['descricao']) ?></p>
-                    <?php endif; ?>
+                    </a>
                 </li>
             <?php endforeach; ?>
         </ul>
