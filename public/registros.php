@@ -137,6 +137,7 @@ require __DIR__ . '/../includes/header.php';
 
 <?php if (empty($pets)): ?>
     <div class="cartao estado-vazio">
+        <div class="estado-vazio-icone" aria-hidden="true">+</div>
         <h2>Cadastre um pet primeiro</h2>
         <p>Voce precisa ter pelo menos um pet para criar registros.</p>
         <a href="/trabalho.pet/public/pet_form.php" class="botao botao-primario">
@@ -145,6 +146,7 @@ require __DIR__ . '/../includes/header.php';
     </div>
 <?php elseif (empty($registros)): ?>
     <div class="cartao estado-vazio">
+        <div class="estado-vazio-icone" aria-hidden="true">?</div>
         <h2>Nenhum registro encontrado</h2>
         <p>Ajuste os filtros ou crie um novo registro.</p>
     </div>

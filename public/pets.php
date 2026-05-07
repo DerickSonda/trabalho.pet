@@ -27,7 +27,7 @@ require __DIR__ . '/../includes/header.php';
 
 <?php if (empty($pets)): ?>
     <div class="cartao estado-vazio">
-        <div class="estado-vazio-icone">[ pet ]</div>
+        <div class="estado-vazio-icone" aria-hidden="true">+</div>
         <h2>Voce ainda nao tem pets cadastrados</h2>
         <p>Comece adicionando seu primeiro pet para registrar o dia a dia dele.</p>
         <a href="/trabalho.pet/public/pet_form.php" class="botao botao-primario">
