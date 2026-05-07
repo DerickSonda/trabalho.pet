@@ -9,9 +9,7 @@
 
 ## 1. Ferramentas Utilizadas
 
-A ferramenta principal foi o **Claude Code** rodando dentro da extensão do VS Code, com o modelo Claude Opus 4.7. Escolhi essa configuração por dois motivos práticos. Primeiro, ela tem acesso direto aos arquivos do projeto, então eu não preciso copiar e colar código no chat: ela edita os arquivos e eu vejo o diff antes de aprovar. Segundo, ela executa comandos de terminal sob minha supervisão (`git`, `php -l`, etc.), o que poupa o vai-e-vem entre janelas.
-
-Não usei o ChatGPT pra essa parte do trabalho. Comparado com o que vi colegas usando, achei o fluxo do Claude Code mais produtivo justamente por evitar o copia-cola. Em paralelo, mantive o XAMPP rodando e ia abrindo `http://localhost/trabalho.pet/public/` no navegador a cada etapa pra testar antes de seguir.
+A ferramenta principal foi o **Claude Code** rodando dentro da extensão do VS Code, com o modelo Claude Opus 4.7. Escolhi essa configuração por motivos práticos. Primeiro, ela tem acesso direto aos arquivos do projeto, então eu não preciso copiar e colar código no chat: ela edita os arquivos e eu vejo o diff antes de aprovar. Segundo, ela executa comandos de terminal sob minha supervisão (`git`, `php -l`, etc.), o que poupa o vai-e-vem entre janelas.
 
 ## 2. Estratégia de Prompts
 

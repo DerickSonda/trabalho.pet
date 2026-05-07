@@ -13,6 +13,28 @@
     const TAMANHO_MAX_FOTO = 2 * 1024 * 1024; // 2 MB
     const EXTENSOES_FOTO = ['jpg', 'jpeg', 'png', 'webp'];
 
+    // Campo livre "qual especie?" - so aparece quando especie='outro'.
+    const selectEspecie = formulario.especie;
+    const campoOutro    = document.getElementById('campo-especie-outro');
+    const inputOutro    = formulario.especie_outro;
+
+    function alternarCampoOutro() {
+        if (!campoOutro) return;
+        if (selectEspecie.value === 'outro') {
+            campoOutro.hidden = false;
+            inputOutro.focus();
+        } else {
+            campoOutro.hidden = true;
+            inputOutro.value = '';
+        }
+    }
+
+    if (selectEspecie && campoOutro) {
+        selectEspecie.addEventListener('change', alternarCampoOutro);
+        // Estado inicial ja vem certo do servidor; nao chamamos aqui pra
+        // nao roubar o foco quando a pagina carrega.
+    }
+
     function mostrarErro(nomeCampo, mensagem) {
         const span = formulario.querySelector('[data-erro="' + nomeCampo + '"]');
         if (span) {
@@ -42,6 +64,15 @@
         if (especie === '') {
             mostrarErro('especie', 'Escolha uma especie.');
             valido = false;
+        }
+
+        // Quando "Outro" e a especie, exigimos preenchimento do campo livre
+        if (especie === 'outro') {
+            const especieOutro = inputOutro ? inputOutro.value.trim() : '';
+            if (especieOutro.length < 2) {
+                mostrarErro('especie_outro', 'Diga qual especie (minimo 2 caracteres).');
+                valido = false;
+            }
         }
 
         if (peso !== '') {

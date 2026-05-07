@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS pets (
     usuario_id       INT UNSIGNED NOT NULL,
     nome             VARCHAR(100) NOT NULL,
     especie          ENUM('cao','gato','coelho','ave','outro') NOT NULL,
+    especie_outro    VARCHAR(50) DEFAULT NULL,
     raca             VARCHAR(100) DEFAULT NULL,
     data_nascimento  DATE DEFAULT NULL,
     peso             DECIMAL(5,2) DEFAULT NULL,

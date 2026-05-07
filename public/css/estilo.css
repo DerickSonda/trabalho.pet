@@ -253,6 +253,23 @@ h1, h2, h3 {
     background-color: var(--cor-fundo);
 }
 
+/* Campo condicional (ex: "Qual especie?" quando seleciona Outro).
+   Animacao roda sempre que o campo deixa de estar com [hidden]. */
+.campo-condicional {
+    border-left: 3px solid var(--cor-primaria);
+    padding-left: 0.85rem;
+    margin-left: 0.25rem;
+}
+
+.campo-condicional:not([hidden]) {
+    animation: surgir-campo 0.25s ease-out;
+}
+
+@keyframes surgir-campo {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
 .campo-erro {
     color: var(--cor-erro);
     font-size: 0.85rem;

@@ -30,6 +30,19 @@ function rotuloEspecie(?string $especie): string
 }
 
 /**
+ * Rotulo da especie levando em conta o campo livre `especie_outro`.
+ * Quando especie='outro' e o campo livre estiver preenchido, mostra
+ * o que o usuario digitou (ex: "Hamster") em vez do generico "Outro".
+ */
+function rotuloEspeciePet(array $pet): string
+{
+    if (($pet['especie'] ?? '') === 'outro' && !empty($pet['especie_outro'])) {
+        return $pet['especie_outro'];
+    }
+    return rotuloEspecie($pet['especie'] ?? null);
+}
+
+/**
  * Mapa tipo -> rotulo amigavel para registros (usado no dashboard).
  */
 function rotuloTipoRegistro(?string $tipo): string
@@ -94,8 +107,8 @@ function buscarPetDoUsuario(int $petId, int $usuarioId): ?array
 {
     $pdo = obterConexao();
     $stmt = $pdo->prepare(
-        'SELECT id, usuario_id, nome, especie, raca, data_nascimento,
-                peso, foto, observacoes, criado_em
+        'SELECT id, usuario_id, nome, especie, especie_outro, raca,
+                data_nascimento, peso, foto, observacoes, criado_em
          FROM pets
          WHERE id = :id AND usuario_id = :usuario_id
          LIMIT 1'
@@ -115,7 +128,8 @@ function listarPetsDoUsuario(int $usuarioId): array
 {
     $pdo = obterConexao();
     $stmt = $pdo->prepare(
-        'SELECT id, nome, especie, raca, data_nascimento, peso, foto
+        'SELECT id, nome, especie, especie_outro, raca,
+                data_nascimento, peso, foto
          FROM pets
          WHERE usuario_id = :usuario_id
          ORDER BY criado_em DESC, id DESC'

@@ -58,7 +58,7 @@ require __DIR__ . '/../includes/header.php';
                 <div class="pet-info">
                     <h2 class="pet-nome"><?= escapar($pet['nome']) ?></h2>
                     <p class="pet-meta">
-                        <?= escapar(rotuloEspecie($pet['especie'])) ?>
+                        <?= escapar(rotuloEspeciePet($pet)) ?>
                         <?php if (!empty($pet['raca'])): ?>
                             - <?= escapar($pet['raca']) ?>
                         <?php endif; ?>

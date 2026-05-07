@@ -34,6 +34,7 @@ $modoEdicao = $petAtual !== null;
 $valores = [
     'nome'            => $petAtual['nome']            ?? '',
     'especie'         => $petAtual['especie']         ?? '',
+    'especie_outro'   => $petAtual['especie_outro']   ?? '',
     'raca'            => $petAtual['raca']            ?? '',
     'data_nascimento' => $petAtual['data_nascimento'] ?? '',
     'peso'            => $petAtual['peso']            ?? '',
@@ -50,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Sobrescreve valores com o que veio do POST (preserva em re-render se erro)
     $valores['nome']            = trim($_POST['nome']            ?? '');
     $valores['especie']         = trim($_POST['especie']         ?? '');
+    $valores['especie_outro']   = trim($_POST['especie_outro']   ?? '');
     $valores['raca']            = trim($_POST['raca']            ?? '');
     $valores['data_nascimento'] = trim($_POST['data_nascimento'] ?? '');
     $valores['peso']            = trim($_POST['peso']            ?? '');
@@ -63,6 +65,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Especie - precisa estar nas opcoes validas
     if (!array_key_exists($valores['especie'], especiesDisponiveis())) {
         $erros['especie'] = 'Escolha uma especie valida.';
+    }
+
+    // Especie "outro": exige texto livre (2 a 50 chars)
+    // Para outras especies, ignoramos o que veio - nao gravamos lixo
+    if ($valores['especie'] === 'outro') {
+        if (mb_strlen($valores['especie_outro']) < 2) {
+            $erros['especie_outro'] = 'Diga qual especie (minimo 2 caracteres).';
+        } elseif (mb_strlen($valores['especie_outro']) > 50) {
+            $erros['especie_outro'] = 'Maximo 50 caracteres.';
+        }
+    } else {
+        $valores['especie_outro'] = '';
     }
 
     // Data de nascimento (opcional, se preenchida precisa ser valida e nao futura)
@@ -150,6 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'UPDATE pets
                     SET nome            = :nome,
                         especie         = :especie,
+                        especie_outro   = :especie_outro,
                         raca            = :raca,
                         data_nascimento = :nascimento,
                         peso            = :peso,
@@ -158,15 +173,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   WHERE id = :id AND usuario_id = :uid'
             );
             $stmt->execute([
-                ':nome'       => $valores['nome'],
-                ':especie'    => $valores['especie'],
-                ':raca'       => $valores['raca'] !== '' ? $valores['raca'] : null,
-                ':nascimento' => $valores['data_nascimento'] !== '' ? $valores['data_nascimento'] : null,
-                ':peso'       => $pesoNumerico,
-                ':foto'       => $fotoFinal,
-                ':obs'        => $valores['observacoes'] !== '' ? $valores['observacoes'] : null,
-                ':id'         => (int) $petAtual['id'],
-                ':uid'        => $usuarioId,
+                ':nome'          => $valores['nome'],
+                ':especie'       => $valores['especie'],
+                ':especie_outro' => $valores['especie_outro'] !== '' ? $valores['especie_outro'] : null,
+                ':raca'          => $valores['raca'] !== '' ? $valores['raca'] : null,
+                ':nascimento'    => $valores['data_nascimento'] !== '' ? $valores['data_nascimento'] : null,
+                ':peso'          => $pesoNumerico,
+                ':foto'          => $fotoFinal,
+                ':obs'           => $valores['observacoes'] !== '' ? $valores['observacoes'] : null,
+                ':id'            => (int) $petAtual['id'],
+                ':uid'           => $usuarioId,
             ]);
 
             // Se enviou foto nova com sucesso, apaga a antiga
@@ -182,19 +198,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Cadastro - usuario_id SEMPRE da sessao
             $stmt = $pdo->prepare(
                 'INSERT INTO pets
-                    (usuario_id, nome, especie, raca, data_nascimento, peso, foto, observacoes)
+                    (usuario_id, nome, especie, especie_outro, raca,
+                     data_nascimento, peso, foto, observacoes)
                  VALUES
-                    (:uid, :nome, :especie, :raca, :nascimento, :peso, :foto, :obs)'
+                    (:uid, :nome, :especie, :especie_outro, :raca,
+                     :nascimento, :peso, :foto, :obs)'
             );
             $stmt->execute([
-                ':uid'        => $usuarioId,
-                ':nome'       => $valores['nome'],
-                ':especie'    => $valores['especie'],
-                ':raca'       => $valores['raca'] !== '' ? $valores['raca'] : null,
-                ':nascimento' => $valores['data_nascimento'] !== '' ? $valores['data_nascimento'] : null,
-                ':peso'       => $pesoNumerico,
-                ':foto'       => $nomeFotoNova,
-                ':obs'        => $valores['observacoes'] !== '' ? $valores['observacoes'] : null,
+                ':uid'           => $usuarioId,
+                ':nome'          => $valores['nome'],
+                ':especie'       => $valores['especie'],
+                ':especie_outro' => $valores['especie_outro'] !== '' ? $valores['especie_outro'] : null,
+                ':raca'          => $valores['raca'] !== '' ? $valores['raca'] : null,
+                ':nascimento'    => $valores['data_nascimento'] !== '' ? $valores['data_nascimento'] : null,
+                ':peso'          => $pesoNumerico,
+                ':foto'          => $nomeFotoNova,
+                ':obs'           => $valores['observacoes'] !== '' ? $valores['observacoes'] : null,
             ]);
 
             mensagemFlash('sucesso', 'Pet cadastrado com sucesso.');
@@ -243,6 +262,25 @@ $especies = especiesDisponiveis();
             </select>
             <span class="campo-erro" data-erro="especie">
                 <?= isset($erros['especie']) ? escapar($erros['especie']) : '' ?>
+            </span>
+        </div>
+
+        <?php
+            // Campo so visivel quando especie='outro'. Usamos a classe
+            // .campo-condicional + atributo hidden para esconder no
+            // primeiro render se nao for o caso. JS controla daqui pra frente.
+            $mostrarOutro = $valores['especie'] === 'outro';
+        ?>
+        <div class="campo campo-condicional"
+             id="campo-especie-outro"
+             <?= $mostrarOutro ? '' : 'hidden' ?>>
+            <label for="especie_outro">Qual especie? <span class="obrig">*</span></label>
+            <input type="text" id="especie_outro" name="especie_outro"
+                   maxlength="50"
+                   placeholder="ex: Hamster, Peixe, Tartaruga..."
+                   value="<?= escapar($valores['especie_outro']) ?>">
+            <span class="campo-erro" data-erro="especie_outro">
+                <?= isset($erros['especie_outro']) ? escapar($erros['especie_outro']) : '' ?>
             </span>
         </div>
 
