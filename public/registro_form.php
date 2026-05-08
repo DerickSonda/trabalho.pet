@@ -48,7 +48,7 @@ $agora = (new DateTime('now'))->format('Y-m-d\TH:i');
 $valores = [
     'pet_id'    => (string) ($registroAtual['pet_id'] ?? $petPreSelecionado ?: ''),
     'tipo'      => $registroAtual['tipo']      ?? '',
-    'data_hora' => $registroAtual['data_hora']
+    'data_hora' => !empty($registroAtual['data_hora'])
         ? date('Y-m-d\TH:i', strtotime($registroAtual['data_hora']))
         : $agora,
     'descricao' => $registroAtual['descricao'] ?? '',
