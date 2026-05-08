@@ -2,8 +2,7 @@
 ## Diário de Pets: análise crítica do uso de IA no desenvolvimento
 
 **Aluno:** Derick Sonda
-**Disciplina:** (preencher)
-**Data:** maio de 2026
+**Disciplina:** PW
 
 ---
 
@@ -15,11 +14,11 @@ A ferramenta principal foi o **Claude Code** rodando dentro da extensão do VS C
 
 Optei por dividir o trabalho em etapas pequenas e funcionais, e não em um único prompt gigante. As etapas ficaram assim, e cada uma virou um commit no git:
 
-1. Estrutura inicial, schema do banco e conexão PDO (`b1136ad`).
-2. Sistema de autenticação: login, cadastro, logout (`849c754`).
-3. Dashboard e CRUD de pets, com upload de foto (`f825be1`).
-4. CRUD de registros com filtros por pet, tipo e período (`be505e8`).
-5. Polimento visual (`2c0ebdc`), depois que tudo já estava funcionando.
+1. Estrutura inicial, schema do banco e conexão PDO.
+2. Sistema de autenticação: login, cadastro, logout.
+3. Dashboard e CRUD de pets, com upload de foto.
+4. CRUD de registros com filtros por pet, tipo e período.
+5. Polimento visual, depois que tudo já estava funcionando.
 
 A última eu chamei mentalmente de "etapa 4.5", porque pedi quando o sistema já estava pronto. Achei que tinha ficado simplório demais visualmente e quis melhorar.
 
