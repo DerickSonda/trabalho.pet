@@ -37,7 +37,25 @@ $flashSucesso = mensagemFlash('sucesso');
 <body>
     <header class="topo">
         <div class="topo-conteudo">
-            <a href="/trabalho.pet/public/" class="topo-marca">Diario de Pets</a>
+            <a href="/trabalho.pet/public/" class="topo-marca">
+                <svg class="topo-marca-icone" viewBox="0 0 64 64"
+                     xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="grad-marca" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%"   stop-color="#6366f1"/>
+                            <stop offset="100%" stop-color="#ec4899"/>
+                        </linearGradient>
+                    </defs>
+                    <ellipse cx="14" cy="22" rx="6" ry="8" fill="url(#grad-marca)"/>
+                    <ellipse cx="26" cy="13" rx="6" ry="9" fill="url(#grad-marca)"/>
+                    <ellipse cx="38" cy="13" rx="6" ry="9" fill="url(#grad-marca)"/>
+                    <ellipse cx="50" cy="22" rx="6" ry="8" fill="url(#grad-marca)"/>
+                    <path d="M32 28 C20 28 14 38 14 46 C14 54 22 58 32 58
+                             C42 58 50 54 50 46 C50 38 44 28 32 28 Z"
+                          fill="url(#grad-marca)"/>
+                </svg>
+                <span>Diario de Pets</span>
+            </a>
             <nav class="topo-menu">
                 <?php if ($logado && $usuario): ?>
                     <span class="topo-usuario">Ola, <?= escapar($usuario['nome']) ?></span>

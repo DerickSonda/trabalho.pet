@@ -27,8 +27,10 @@ function usuarioLogado(): bool
 
 /**
  * Bloqueia paginas que exigem login.
- * Se o usuario nao esta logado, salva uma mensagem de erro e
- * redireciona para a tela de login.
+ *
+ * Alem de checar a sessao, garante que o usuario ainda existe no banco.
+ * Se a sessao tiver um usuario_id orfao (ex.: usuario foi excluido,
+ * banco recriado), destroi a sessao e manda pro login.
  */
 function exigirLogin(): void
 {
@@ -36,15 +38,32 @@ function exigirLogin(): void
         mensagemFlash('erro', 'Voce precisa estar logado para acessar esta pagina.');
         redirecionar('/trabalho.pet/public/login.php');
     }
+
+    if (usuarioAtual() === null) {
+        deslogarUsuario();
+        iniciarSessao();
+        mensagemFlash('erro', 'Sua sessao expirou. Faca login novamente.');
+        redirecionar('/trabalho.pet/public/login.php');
+    }
 }
 
 /**
  * Retorna os dados do usuario logado (id, nome, email) ou null.
  * Consulta o banco para garantir que o usuario ainda existe.
+ *
+ * Resultado e cacheado por request - chamadas seguintes nao reconsultam.
  */
 function usuarioAtual(): ?array
 {
+    static $cache = null;
+    static $consultado = false;
+
+    if ($consultado) {
+        return $cache;
+    }
+
     if (!usuarioLogado()) {
+        $consultado = true;
         return null;
     }
 
@@ -53,7 +72,9 @@ function usuarioAtual(): ?array
     $stmt->execute([':id' => $_SESSION['usuario_id']]);
     $usuario = $stmt->fetch();
 
-    return $usuario ?: null;
+    $cache = $usuario ?: null;
+    $consultado = true;
+    return $cache;
 }
 
 /**
